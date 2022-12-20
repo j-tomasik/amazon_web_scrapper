@@ -55,4 +55,17 @@ app.get('/products/:productId/offers', async (req, res) => {
     }
 })
 
+//GET search results
+app.get('/search/:searchQuery', async (req, res) => {
+    const { searchQuery } = req.params;
+
+    try {
+        const response = await request(`${baseUrl}&url=https://www.amazon.com/s?k=${searchQuery}`)
+    
+        res.json(JSON.parse(response))
+    } catch (error) {
+        res.json(error)
+    }
+})
+
 app.listen(PORT, () => console.log(`Sever running on port ${PORT}`));
